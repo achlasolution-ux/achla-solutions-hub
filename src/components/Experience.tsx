@@ -65,8 +65,10 @@ const experiences = [
 
 const Experience = () => {
   return (
-    <section id="experience" className="py-24 px-6 bg-card/50">
-      <div className="max-w-4xl mx-auto">
+    <section id="experience" className="py-32 px-6 relative overflow-hidden">
+      <div className="absolute inset-0 animated-grid opacity-5" />
+
+      <div className="max-w-4xl mx-auto relative">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -74,35 +76,51 @@ const Experience = () => {
           transition={{ duration: 0.7 }}
         >
           <p className="text-primary tracking-[0.25em] uppercase text-xs font-medium mb-4">Journey</p>
-          <h2 className="text-4xl sm:text-5xl font-serif mb-16">
+          <h2 className="text-4xl sm:text-6xl font-serif mb-16">
             Experience & <span className="text-gradient">education</span>
           </h2>
         </motion.div>
 
         <div className="relative">
-          {/* Timeline line */}
-          <div className="absolute left-6 top-0 bottom-0 w-px bg-border" />
+          {/* Animated timeline line */}
+          <motion.div
+            className="absolute left-6 top-0 bottom-0 w-px bg-gradient-to-b from-primary via-primary/50 to-transparent"
+            initial={{ scaleY: 0, originY: 0 }}
+            whileInView={{ scaleY: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 1.5, ease: "easeOut" }}
+          />
 
-          <div className="space-y-10">
+          <div className="space-y-12">
             {experiences.map((exp, i) => (
               <motion.div
                 key={exp.title + exp.org}
-                initial={{ opacity: 0, x: -20 }}
+                initial={{ opacity: 0, x: -30 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true, margin: "-50px" }}
-                transition={{ duration: 0.5, delay: i * 0.1 }}
-                className="relative pl-16"
+                transition={{ duration: 0.6, delay: i * 0.1 }}
+                className="relative pl-16 group"
               >
-                {/* Dot */}
-                <div className="absolute left-4 top-1 w-5 h-5 rounded-full bg-background border-2 border-primary flex items-center justify-center">
-                  {exp.type === "work" ? (
-                    <Briefcase className="w-2.5 h-2.5 text-primary" />
-                  ) : (
-                    <GraduationCap className="w-2.5 h-2.5 text-primary" />
-                  )}
+                {/* Dot with pulse */}
+                <div className="absolute left-[14px] top-1 z-10">
+                  <div className="w-6 h-6 rounded-full bg-background border-2 border-primary flex items-center justify-center">
+                    {exp.type === "work" ? (
+                      <Briefcase className="w-3 h-3 text-primary" />
+                    ) : (
+                      <GraduationCap className="w-3 h-3 text-primary" />
+                    )}
+                  </div>
+                  <motion.div
+                    className="absolute inset-0 rounded-full border border-primary/30"
+                    animate={{ scale: [1, 1.8, 1], opacity: [0.5, 0, 0.5] }}
+                    transition={{ duration: 2, repeat: Infinity, delay: i * 0.3 }}
+                  />
                 </div>
 
-                <div>
+                <motion.div
+                  className="bg-card border border-border rounded-2xl p-6 hover:border-primary/30 transition-colors duration-300"
+                  whileHover={{ x: 8, transition: { duration: 0.3 } }}
+                >
                   <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1 mb-1">
                     <h3 className="text-lg font-serif text-foreground">{exp.title}</h3>
                     <span className="text-primary text-sm font-medium">{exp.org}</span>
@@ -112,13 +130,20 @@ const Experience = () => {
                   </p>
                   <ul className="space-y-2">
                     {exp.points.map((point, j) => (
-                      <li key={j} className="text-sm text-muted-foreground leading-relaxed flex gap-2">
-                        <span className="text-primary mt-1.5 shrink-0">▸</span>
+                      <motion.li
+                        key={j}
+                        className="text-sm text-muted-foreground leading-relaxed flex gap-2"
+                        initial={{ opacity: 0, x: -10 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ delay: 0.2 + j * 0.05 }}
+                      >
+                        <span className="text-primary mt-1 shrink-0">▸</span>
                         {point}
-                      </li>
+                      </motion.li>
                     ))}
                   </ul>
-                </div>
+                </motion.div>
               </motion.div>
             ))}
           </div>
