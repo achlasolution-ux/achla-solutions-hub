@@ -18,8 +18,6 @@ const Navbar = () => {
   useEffect(() => {
     const onScroll = () => {
       setScrolled(window.scrollY > 50);
-
-      // Track active section
       const sections = navItems.map(item => item.href.slice(1));
       for (let i = sections.length - 1; i >= 0; i--) {
         const el = document.getElementById(sections[i]);
@@ -33,6 +31,16 @@ const Navbar = () => {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  // Lock body scroll when mobile menu is open
+  useEffect(() => {
+    if (mobileOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => { document.body.style.overflow = ""; };
+  }, [mobileOpen]);
+
   return (
     <motion.nav
       initial={{ y: -100 }}
@@ -42,10 +50,10 @@ const Navbar = () => {
         scrolled ? "bg-background/60 backdrop-blur-xl border-b border-border/50" : ""
       }`}
     >
-      <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 h-14 sm:h-16 flex items-center justify-between">
         <motion.a
           href="#"
-          className="text-xl font-serif font-bold relative"
+          className="text-lg sm:text-xl font-serif font-bold relative"
           whileHover={{ scale: 1.05 }}
         >
           MK<span className="text-primary">.</span>
@@ -85,26 +93,31 @@ const Navbar = () => {
         </motion.button>
       </div>
 
-      {/* Mobile menu */}
+      {/* Mobile menu - full screen overlay */}
       <AnimatePresence>
         {mobileOpen && (
           <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.3, ease: "easeInOut" }}
-            className="md:hidden bg-background/95 backdrop-blur-xl border-b border-border/50 overflow-hidden"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
+            className="md:hidden fixed inset-0 top-14 bg-background/98 backdrop-blur-xl z-40"
           >
-            <div className="px-6 py-4 space-y-1">
+            <div className="flex flex-col items-center justify-center h-full gap-2 -mt-14">
               {navItems.map((item, i) => (
                 <motion.a
                   key={item.label}
                   href={item.href}
                   onClick={() => setMobileOpen(false)}
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: i * 0.05 }}
-                  className="block text-sm text-muted-foreground hover:text-primary transition-colors py-3 px-4 rounded-xl hover:bg-card"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: 10 }}
+                  transition={{ delay: i * 0.06 }}
+                  className={`text-2xl font-serif py-3 px-8 rounded-2xl transition-colors ${
+                    activeSection === item.href.slice(1)
+                      ? "text-primary bg-primary/10"
+                      : "text-muted-foreground hover:text-primary"
+                  }`}
                 >
                   {item.label}
                 </motion.a>
