@@ -92,44 +92,42 @@ const ProjectCard = ({ project, index }: { project: typeof projects[0]; index: n
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-50px" }}
       transition={{ duration: 0.6, delay: index * 0.1 }}
-      className="group relative bg-card border border-border rounded-2xl p-6 sm:p-8 overflow-hidden cursor-default"
+      className="group relative bg-card border border-border rounded-2xl p-5 sm:p-6 md:p-8 overflow-hidden cursor-default"
     >
-      {/* Spotlight effect */}
       <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-[radial-gradient(circle_at_var(--mouse-x,50%)_var(--mouse-y,50%),_hsl(160_60%_45%_/_0.06)_0%,_transparent_60%)]" />
       
-      {/* Number watermark */}
-      <span className="absolute top-4 right-6 text-7xl font-serif text-border/30 select-none">{project.num}</span>
+      <span className="absolute top-2 right-4 sm:top-4 sm:right-6 text-5xl sm:text-7xl font-serif text-border/30 select-none">{project.num}</span>
 
       <div className="relative z-10">
-        <div className="flex items-start justify-between mb-4">
+        <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-2 sm:gap-4 mb-3 sm:mb-4">
           <div>
-            <h3 className="text-xl font-serif text-foreground group-hover:text-primary transition-colors duration-300 flex items-center gap-2">
+            <h3 className="text-lg sm:text-xl font-serif text-foreground group-hover:text-primary transition-colors duration-300 flex items-center gap-2">
               {project.title}
               <ArrowUpRight className="w-4 h-4 opacity-0 -translate-y-1 translate-x-1 group-hover:opacity-100 group-hover:translate-y-0 group-hover:translate-x-0 transition-all duration-300 text-primary" />
             </h3>
-            <p className="text-sm text-muted-foreground">{project.subtitle}</p>
+            <p className="text-xs sm:text-sm text-muted-foreground">{project.subtitle}</p>
           </div>
-          <span className={`text-xs px-3 py-1 rounded-full font-medium border ${statusColor[project.status]}`}>
+          <span className={`text-[10px] sm:text-xs px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-full font-medium border whitespace-nowrap self-start ${statusColor[project.status]}`}>
             {project.status}
           </span>
         </div>
 
-        <p className="text-sm text-muted-foreground leading-relaxed mb-4">{project.description}</p>
+        <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed mb-3 sm:mb-4">{project.description}</p>
         
         <motion.p
-          className="text-xs text-primary font-medium mb-5 flex items-center gap-1.5"
+          className="text-[10px] sm:text-xs text-primary font-medium mb-4 sm:mb-5 flex items-center gap-1.5"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ delay: 0.3 }}
         >
-          <span className="w-1.5 h-1.5 rounded-full bg-primary inline-block" />
+          <span className="w-1.5 h-1.5 rounded-full bg-primary inline-block shrink-0" />
           {project.highlight}
         </motion.p>
 
-        <div className="flex flex-wrap gap-2">
+        <div className="flex flex-wrap gap-1.5 sm:gap-2">
           {project.tech.map((t) => (
-            <span key={t} className="text-xs px-2.5 py-1 bg-secondary/60 text-secondary-foreground rounded-lg border border-border/50">
+            <span key={t} className="text-[10px] sm:text-xs px-2 sm:px-2.5 py-0.5 sm:py-1 bg-secondary/60 text-secondary-foreground rounded-lg border border-border/50">
               {t}
             </span>
           ))}
@@ -141,7 +139,7 @@ const ProjectCard = ({ project, index }: { project: typeof projects[0]; index: n
 
 const Projects = () => {
   return (
-    <section id="projects" className="py-32 px-6 relative">
+    <section id="projects" className="py-16 sm:py-24 lg:py-32 px-4 sm:px-6 relative">
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-primary/[0.02] to-transparent pointer-events-none" />
 
       <div className="max-w-6xl mx-auto relative">
@@ -150,16 +148,16 @@ const Projects = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.7 }}
-          className="flex items-end justify-between mb-16"
+          className="flex items-end justify-between mb-10 sm:mb-16"
         >
           <div>
-            <p className="text-primary tracking-[0.25em] uppercase text-xs font-medium mb-4">Portfolio</p>
-            <h2 className="text-4xl sm:text-6xl font-serif">
+            <p className="text-primary tracking-[0.25em] uppercase text-xs font-medium mb-3 sm:mb-4">Portfolio</p>
+            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-serif">
               Featured <span className="text-gradient">projects</span>
             </h2>
           </div>
           <motion.span
-            className="hidden sm:block text-7xl font-serif text-border/20"
+            className="hidden sm:block text-5xl md:text-7xl font-serif text-border/20"
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
@@ -168,7 +166,7 @@ const Projects = () => {
           </motion.span>
         </motion.div>
 
-        <div className="grid md:grid-cols-2 gap-6" style={{ perspective: "1000px" }}>
+        <div className="grid md:grid-cols-2 gap-4 sm:gap-6" style={{ perspective: "1000px" }}>
           {projects.map((project, i) => (
             <ProjectCard key={project.title} project={project} index={i} />
           ))}

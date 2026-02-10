@@ -54,8 +54,7 @@ const cardVariants = {
 
 const Skills = () => {
   return (
-    <section id="skills" className="py-32 px-6 relative overflow-hidden">
-      {/* Background grid */}
+    <section id="skills" className="py-16 sm:py-24 lg:py-32 px-4 sm:px-6 relative overflow-hidden">
       <div className="absolute inset-0 animated-grid opacity-10" />
 
       <div className="max-w-6xl mx-auto relative">
@@ -65,14 +64,14 @@ const Skills = () => {
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.7 }}
         >
-          <p className="text-primary tracking-[0.25em] uppercase text-xs font-medium mb-4">Expertise</p>
-          <h2 className="text-4xl sm:text-6xl font-serif mb-16">
+          <p className="text-primary tracking-[0.25em] uppercase text-xs font-medium mb-3 sm:mb-4">Expertise</p>
+          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-serif mb-10 sm:mb-16">
             Technical <span className="text-gradient">proficiencies</span>
           </h2>
         </motion.div>
 
         <motion.div
-          className="grid md:grid-cols-2 lg:grid-cols-3 gap-6"
+          className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6"
           variants={containerVariants}
           initial="hidden"
           whileInView="show"
@@ -82,13 +81,11 @@ const Skills = () => {
             <motion.div
               key={group.title}
               variants={cardVariants}
-              className="group relative bg-card border border-border rounded-2xl p-6 overflow-hidden"
+              className="group relative bg-card border border-border rounded-2xl p-5 sm:p-6 overflow-hidden"
               whileHover={{ y: -8, transition: { duration: 0.3 } }}
             >
-              {/* Gradient overlay on hover */}
               <div className={`absolute inset-0 bg-gradient-to-br ${group.color} opacity-0 group-hover:opacity-100 transition-opacity duration-500`} />
               
-              {/* Glow line */}
               <motion.div
                 className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-primary to-transparent"
                 initial={{ scaleX: 0 }}
@@ -98,17 +95,17 @@ const Skills = () => {
               />
 
               <div className="relative z-10">
-                <div className="flex items-center gap-3 mb-5">
-                  <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center text-primary">
+                <div className="flex items-center gap-3 mb-4 sm:mb-5">
+                  <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-primary/10 flex items-center justify-center text-primary">
                     {group.icon}
                   </div>
-                  <h3 className="text-lg font-serif text-foreground">{group.title}</h3>
+                  <h3 className="text-base sm:text-lg font-serif text-foreground">{group.title}</h3>
                 </div>
-                <div className="flex flex-wrap gap-2">
+                <div className="flex flex-wrap gap-1.5 sm:gap-2">
                   {group.skills.map((skill, j) => (
                     <motion.span
                       key={skill}
-                      className="px-3 py-1.5 text-xs font-medium bg-secondary/80 text-secondary-foreground rounded-lg border border-border/50 hover:border-primary/30 hover:bg-primary/10 transition-all duration-300 cursor-default"
+                      className="px-2.5 py-1 sm:px-3 sm:py-1.5 text-[10px] sm:text-xs font-medium bg-secondary/80 text-secondary-foreground rounded-lg border border-border/50 hover:border-primary/30 hover:bg-primary/10 transition-all duration-300 cursor-default"
                       initial={{ opacity: 0, scale: 0.8 }}
                       whileInView={{ opacity: 1, scale: 1 }}
                       viewport={{ once: true }}
