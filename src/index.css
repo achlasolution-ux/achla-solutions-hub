@@ -111,4 +111,22 @@
     -ms-overflow-style: none;
     scrollbar-width: none;
   }
+
+  .animated-grid {
+    background-size: 60px 60px;
+    background-image:
+      linear-gradient(to right, hsl(160 60% 45% / 0.05) 1px, transparent 1px),
+      linear-gradient(to bottom, hsl(160 60% 45% / 0.05) 1px, transparent 1px);
+    animation: grid-move 20s linear infinite;
+  }
+
+  @keyframes grid-move {
+    0% { background-position: 0 0; }
+    100% { background-position: 60px 60px; }
+  }
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
 }

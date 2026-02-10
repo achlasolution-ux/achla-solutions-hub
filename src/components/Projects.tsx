@@ -1,121 +1,176 @@
-import { motion } from "framer-motion";
-import { ExternalLink, ArrowRight } from "lucide-react";
+import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
+import { ArrowUpRight } from "lucide-react";
+import { useRef } from "react";
 
 const projects = [
   {
     title: "Prime Market",
     subtitle: "Multi-Vendor E-Commerce Platform",
-    description:
-      "Enterprise e-commerce platform targeting 50,000+ concurrent users with 4 payment gateways, 66-table database, and complete order lifecycle management.",
+    description: "Enterprise e-commerce platform targeting 50,000+ concurrent users with 4 payment gateways, 66-table database, and complete order lifecycle management.",
     tech: ["ASP.NET Core 7.0", "Entity Framework", "SQL Server", "Docker", "AWS S3"],
     highlight: "421 EF Core migrations • <1s response time",
     status: "In Development",
+    num: "01",
   },
   {
     title: "POE Platform",
     subtitle: "Multi-Institutional Learning Analytics",
-    description:
-      "Cloud-native analytics platform serving 10,000+ concurrent users across 5 TVET colleges with role-based dashboards and real-time monitoring.",
+    description: "Cloud-native analytics platform serving 10,000+ concurrent users across 5 TVET colleges with role-based dashboards and real-time monitoring.",
     tech: ["Rust", "React", "PostgreSQL", "AWS", "Prometheus"],
     highlight: "99.8% uptime • 60% faster deployments",
     status: "Production",
+    num: "02",
   },
   {
     title: "Hospital Management System",
     subtitle: "16-Module Hospital ERP",
-    description:
-      "Comprehensive ERP consolidating patient care, billing, pharmacy, laboratory, radiology, and operations with multi-hospital deployment capabilities.",
+    description: "Comprehensive ERP consolidating patient care, billing, pharmacy, laboratory, radiology, and operations with multi-hospital deployment capabilities.",
     tech: ["Rust", "Node.js", "PostgreSQL", "AWS", "Docker"],
     highlight: "99.9% uptime • 16 modules • Auto failover",
     status: "Production",
+    num: "03",
   },
   {
     title: "FGCK Streaming Platform",
     subtitle: "Church Broadcasting App",
-    description:
-      "Cross-platform mobile app for live service broadcasting with integrated M-Pesa and Paystack payments for tithes and donations.",
+    description: "Cross-platform mobile app for live service broadcasting with integrated M-Pesa and Paystack payments for tithes and donations.",
     tech: ["React Native", "Supabase", "AWS S3", "M-Pesa", "Brevo"],
     highlight: "Live streaming • VOD • Push notifications",
     status: "Production",
+    num: "04",
   },
   {
     title: "AppTestHub",
     subtitle: "QA Marketplace",
-    description:
-      "React Native marketplace connecting enterprises with distributed QA testers. Automated bug reporting with performance analytics.",
+    description: "React Native marketplace connecting enterprises with distributed QA testers. Automated bug reporting with performance analytics.",
     tech: ["React Native", "FastAPI", "MongoDB", "AWS Amplify", "Stripe"],
     highlight: "Automated reporting • Enterprise testing",
     status: "Testing",
+    num: "05",
   },
   {
     title: "AccountYetu",
     subtitle: "Subscription Resale Platform",
-    description:
-      "SaaS platform for premium subscription services at subsidized rates with automated provisioning and customer management.",
+    description: "SaaS platform for premium subscription services at subsidized rates with automated provisioning and customer management.",
     tech: ["Next.js", "Node.js", "PostgreSQL", "Stripe"],
     highlight: "Automated provisioning • SaaS model",
     status: "Production",
+    num: "06",
   },
 ];
 
 const statusColor: Record<string, string> = {
-  Production: "bg-primary/20 text-primary",
-  "In Development": "bg-amber-500/20 text-amber-400",
-  Testing: "bg-blue-500/20 text-blue-400",
+  Production: "bg-primary/20 text-primary border-primary/30",
+  "In Development": "bg-amber-500/20 text-amber-400 border-amber-500/30",
+  Testing: "bg-blue-500/20 text-blue-400 border-blue-500/30",
+};
+
+const ProjectCard = ({ project, index }: { project: typeof projects[0]; index: number }) => {
+  const ref = useRef<HTMLDivElement>(null);
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
+  const rotateX = useSpring(useTransform(y, [-100, 100], [5, -5]), { stiffness: 300, damping: 30 });
+  const rotateY = useSpring(useTransform(x, [-100, 100], [-5, 5]), { stiffness: 300, damping: 30 });
+
+  const handleMouse = (e: React.MouseEvent) => {
+    const el = ref.current;
+    if (!el) return;
+    const rect = el.getBoundingClientRect();
+    x.set(e.clientX - rect.left - rect.width / 2);
+    y.set(e.clientY - rect.top - rect.height / 2);
+  };
+
+  const reset = () => { x.set(0); y.set(0); };
+
+  return (
+    <motion.div
+      ref={ref}
+      onMouseMove={handleMouse}
+      onMouseLeave={reset}
+      style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
+      initial={{ opacity: 0, y: 50 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-50px" }}
+      transition={{ duration: 0.6, delay: index * 0.1 }}
+      className="group relative bg-card border border-border rounded-2xl p-6 sm:p-8 overflow-hidden cursor-default"
+    >
+      {/* Spotlight effect */}
+      <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-[radial-gradient(circle_at_var(--mouse-x,50%)_var(--mouse-y,50%),_hsl(160_60%_45%_/_0.06)_0%,_transparent_60%)]" />
+      
+      {/* Number watermark */}
+      <span className="absolute top-4 right-6 text-7xl font-serif text-border/30 select-none">{project.num}</span>
+
+      <div className="relative z-10">
+        <div className="flex items-start justify-between mb-4">
+          <div>
+            <h3 className="text-xl font-serif text-foreground group-hover:text-primary transition-colors duration-300 flex items-center gap-2">
+              {project.title}
+              <ArrowUpRight className="w-4 h-4 opacity-0 -translate-y-1 translate-x-1 group-hover:opacity-100 group-hover:translate-y-0 group-hover:translate-x-0 transition-all duration-300 text-primary" />
+            </h3>
+            <p className="text-sm text-muted-foreground">{project.subtitle}</p>
+          </div>
+          <span className={`text-xs px-3 py-1 rounded-full font-medium border ${statusColor[project.status]}`}>
+            {project.status}
+          </span>
+        </div>
+
+        <p className="text-sm text-muted-foreground leading-relaxed mb-4">{project.description}</p>
+        
+        <motion.p
+          className="text-xs text-primary font-medium mb-5 flex items-center gap-1.5"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.3 }}
+        >
+          <span className="w-1.5 h-1.5 rounded-full bg-primary inline-block" />
+          {project.highlight}
+        </motion.p>
+
+        <div className="flex flex-wrap gap-2">
+          {project.tech.map((t) => (
+            <span key={t} className="text-xs px-2.5 py-1 bg-secondary/60 text-secondary-foreground rounded-lg border border-border/50">
+              {t}
+            </span>
+          ))}
+        </div>
+      </div>
+    </motion.div>
+  );
 };
 
 const Projects = () => {
   return (
-    <section id="projects" className="py-24 px-6">
-      <div className="max-w-6xl mx-auto">
+    <section id="projects" className="py-32 px-6 relative">
+      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-primary/[0.02] to-transparent pointer-events-none" />
+
+      <div className="max-w-6xl mx-auto relative">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.7 }}
+          className="flex items-end justify-between mb-16"
         >
-          <p className="text-primary tracking-[0.25em] uppercase text-xs font-medium mb-4">Portfolio</p>
-          <h2 className="text-4xl sm:text-5xl font-serif mb-16">
-            Featured <span className="text-gradient">projects</span>
-          </h2>
+          <div>
+            <p className="text-primary tracking-[0.25em] uppercase text-xs font-medium mb-4">Portfolio</p>
+            <h2 className="text-4xl sm:text-6xl font-serif">
+              Featured <span className="text-gradient">projects</span>
+            </h2>
+          </div>
+          <motion.span
+            className="hidden sm:block text-7xl font-serif text-border/20"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+          >
+            {projects.length}
+          </motion.span>
         </motion.div>
 
-        <div className="grid md:grid-cols-2 gap-6">
+        <div className="grid md:grid-cols-2 gap-6" style={{ perspective: "1000px" }}>
           {projects.map((project, i) => (
-            <motion.div
-              key={project.title}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-50px" }}
-              transition={{ duration: 0.5, delay: i * 0.08 }}
-              className="group bg-card border border-border rounded-xl p-6 sm:p-8 card-hover"
-            >
-              <div className="flex items-start justify-between mb-4">
-                <div>
-                  <h3 className="text-xl font-serif text-foreground group-hover:text-primary transition-colors">
-                    {project.title}
-                  </h3>
-                  <p className="text-sm text-muted-foreground">{project.subtitle}</p>
-                </div>
-                <span className={`text-xs px-3 py-1 rounded-full font-medium ${statusColor[project.status]}`}>
-                  {project.status}
-                </span>
-              </div>
-
-              <p className="text-sm text-muted-foreground leading-relaxed mb-4">
-                {project.description}
-              </p>
-
-              <p className="text-xs text-primary font-medium mb-4">{project.highlight}</p>
-
-              <div className="flex flex-wrap gap-2">
-                {project.tech.map((t) => (
-                  <span key={t} className="text-xs px-2.5 py-1 bg-secondary text-secondary-foreground rounded-md">
-                    {t}
-                  </span>
-                ))}
-              </div>
-            </motion.div>
+            <ProjectCard key={project.title} project={project} index={i} />
           ))}
         </div>
       </div>
