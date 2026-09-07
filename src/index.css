@@ -146,6 +146,11 @@
   animation: orb-pulse 4s ease-in-out infinite;
 }
 
+@keyframes float {
+  0%, 100% { transform: translateY(0) rotate(8deg); }
+  50% { transform: translateY(-14px) rotate(-4deg); }
+}
+
 /* Section divider line */
 .section-divider {
   height: 1px;

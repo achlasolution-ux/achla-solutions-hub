@@ -36,18 +36,13 @@ const About = () => {
             className="space-y-5 sm:space-y-6 text-muted-foreground leading-relaxed"
           >
             <p className="text-base sm:text-lg">
-              Full-Stack Software Engineer with extensive experience architecting and delivering 
-              enterprise-grade systems. Currently developing <strong className="text-foreground">Prime Market</strong>, 
-              a multi-vendor e-commerce platform targeting 50,000+ concurrent users.
+              I’m Moses Karani, a full-stack software engineer who turns real operational needs into clear, dependable digital products. My work spans commerce, inventory, streaming, websites, and communication tools.
             </p>
             <p className="text-sm sm:text-base">
-              Founder of <strong className="text-foreground">Achla Solutions</strong>, specializing in 
-              web development, cloud infrastructure, and digital transformation. Expert in ASP.NET Core, 
-              React, Node.js, Python, Rust, AWS, and DevOps automation.
+              At <strong className="text-foreground">Prime Market</strong>, I built and managed an e-commerce and inventory system. I now contribute through independent projects for Rhema Outreach Missionary International, bringing practical technology to ministry and community work.
             </p>
             <p className="text-sm sm:text-base">
-              Proven track record building production systems with high reliability — from hospital 
-              management platforms to learning analytics serving multiple TVET colleges.
+              I care about the details that make software useful: a graceful user experience, maintainable systems, and products that stay easy to run after launch.
             </p>
 
             <motion.div 
@@ -57,7 +52,7 @@ const About = () => {
               viewport={{ once: true }}
               transition={{ delay: 0.5 }}
             >
-              {["Rust", "React", "AWS", "Docker", ".NET", "Node.js"].map((tech, i) => (
+              {["React", "ASP.NET Core", "Node.js", "Cloud", "Docker", "Product Design"].map((tech, i) => (
                 <motion.span
                   key={tech}
                   className="px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm border border-primary/20 rounded-full text-primary bg-primary/5"

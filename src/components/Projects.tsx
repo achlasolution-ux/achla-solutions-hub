@@ -6,10 +6,10 @@ const projects = [
   {
     title: "Prime Market",
     subtitle: "Multi-Vendor E-Commerce Platform",
-    description: "Enterprise e-commerce platform targeting 50,000+ concurrent users with 4 payment gateways, 66-table database, and complete order lifecycle management.",
-    tech: ["ASP.NET Core 7.0", "Entity Framework", "SQL Server", "Docker", "AWS S3"],
-    highlight: "421 EF Core migrations • <1s response time",
-    status: "In Development",
+    description: "A commerce and inventory solution built to help the Prime Market team manage products, stock, orders, and everyday operations in one practical system.",
+    tech: ["ASP.NET Core", "E-Commerce", "Inventory", "SQL", "Docker"],
+    highlight: "Commerce operations • Inventory visibility",
+    status: "Delivered",
     num: "01",
   },
   {
@@ -31,12 +31,12 @@ const projects = [
     num: "03",
   },
   {
-    title: "FGCK Streaming Platform",
-    subtitle: "Church Broadcasting App",
-    description: "Cross-platform mobile app for live service broadcasting with integrated M-Pesa and Paystack payments for tithes and donations.",
-    tech: ["React Native", "Supabase", "AWS S3", "M-Pesa", "Brevo"],
-    highlight: "Live streaming • VOD • Push notifications",
-    status: "Production",
+    title: "Rhema Outreach Digital Platform",
+    subtitle: "Streaming, Prayer & Community Communication",
+    description: "An active collection of side projects: a church streaming app, the Wailing Mothers Prayer Movement website, and a bulk SMS platform for community communication.",
+    tech: ["Streaming", "Web Development", "SMS", "Community Tools"],
+    highlight: "Live ministry • Outreach • Bulk messaging",
+    status: "In Development",
     num: "04",
   },
   {
@@ -63,6 +63,7 @@ const statusColor: Record<string, string> = {
   Production: "bg-primary/20 text-primary border-primary/30",
   "In Development": "bg-amber-500/20 text-amber-400 border-amber-500/30",
   Testing: "bg-blue-500/20 text-blue-400 border-blue-500/30",
+  Delivered: "bg-primary/20 text-primary border-primary/30",
 };
 
 const ProjectCard = ({ project, index }: { project: typeof projects[0]; index: number }) => {

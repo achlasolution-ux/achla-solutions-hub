@@ -1,8 +1,9 @@
 import { motion } from "framer-motion";
-import { MapPin, Mail, Phone, ChevronDown, ArrowRight } from "lucide-react";
+import { MapPin, Mail, Phone, ChevronDown, ArrowRight, Code2 } from "lucide-react";
 import ParticleField from "./ParticleField";
 import TextScramble from "./TextScramble";
 import MagneticButton from "./MagneticButton";
+import portrait from "@/assets/moses-karani.jpg";
 
 const Hero = () => {
   return (
@@ -39,7 +40,8 @@ const Hero = () => {
         transition={{ rotate: { duration: 30, repeat: Infinity, ease: "linear" }, y: { duration: 8, repeat: Infinity } }}
       />
 
-      <div className="relative z-10 text-center px-4 sm:px-6 max-w-5xl mx-auto">
+      <div className="relative z-10 w-full max-w-6xl mx-auto px-4 sm:px-6 pt-24 pb-20 grid lg:grid-cols-[1.1fr_.9fr] items-center gap-10 lg:gap-16">
+        <div className="text-center lg:text-left">
         {/* Glowing badge */}
         <motion.div
           initial={{ opacity: 0, scale: 0.8 }}
@@ -48,11 +50,11 @@ const Hero = () => {
           className="inline-flex items-center gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full border border-primary/30 bg-primary/5 backdrop-blur-sm mb-6 sm:mb-8"
         >
           <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
-          <TextScramble text="Full-Stack Software Engineer" className="text-primary text-xs sm:text-sm font-medium tracking-wide" delay={300} />
+          <TextScramble text="Software Engineer · Systems Builder" className="text-primary text-xs sm:text-sm font-medium tracking-wide" delay={300} />
         </motion.div>
 
         <motion.h1
-          className="text-4xl sm:text-6xl md:text-7xl lg:text-9xl font-serif leading-[0.9] mb-6 sm:mb-8"
+          className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-serif leading-[0.9] mb-6 sm:mb-8"
           initial={{ opacity: 0, y: 60 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
@@ -80,14 +82,11 @@ const Hero = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.8 }}
         >
-          Architecting enterprise-grade systems across East Africa.{" "}
-          <span className="text-foreground font-medium">5+ years</span> building production platforms 
-          serving <span className="text-primary font-medium">10,000+</span> users with{" "}
-          <span className="text-primary font-medium">99.8%</span> uptime.
+          I design reliable digital products for commerce, communities, and growing organizations — from e-commerce and inventory systems to streaming and messaging platforms.
         </motion.p>
 
         <motion.div
-          className="flex flex-col sm:flex-row flex-wrap items-center justify-center gap-2 sm:gap-4 text-xs sm:text-sm text-muted-foreground mb-8 sm:mb-10"
+          className="flex flex-col sm:flex-row flex-wrap items-center justify-center lg:justify-start gap-2 sm:gap-4 text-xs sm:text-sm text-muted-foreground mb-8 sm:mb-10"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.8, delay: 1 }}
@@ -104,7 +103,7 @@ const Hero = () => {
         </motion.div>
 
         <motion.div
-          className="flex flex-col sm:flex-row justify-center gap-3 sm:gap-4"
+          className="flex flex-col sm:flex-row justify-center lg:justify-start gap-3 sm:gap-4"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 1.2 }}
@@ -129,9 +128,21 @@ const Hero = () => {
           </MagneticButton>
         </motion.div>
 
+        </div>
+
+        <motion.div initial={{ opacity: 0, scale: 0.88, rotate: 6 }} animate={{ opacity: 1, scale: 1, rotate: 0 }} transition={{ duration: 1, delay: 0.45, ease: [0.22, 1, 0.36, 1] }} className="relative mx-auto w-[min(82vw,390px)] lg:w-full perspective-[1000px]">
+          <motion.div animate={{ y: [0, -12, 0], rotateY: [-3, 3, -3] }} transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }} className="relative aspect-[.76] rounded-[2rem] p-2 bg-gradient-to-br from-primary via-sky-400/60 to-primary/20 shadow-[0_30px_100px_hsl(160_60%_45%_/_0.22)]">
+            <img src={portrait} alt="Moses Karani" className="h-full w-full rounded-[1.6rem] object-cover object-center" />
+            <div className="absolute inset-2 rounded-[1.6rem] bg-gradient-to-t from-background/55 via-transparent to-transparent" />
+            <div className="absolute bottom-7 left-7 right-7 flex items-center justify-between rounded-2xl border border-white/15 bg-background/55 px-4 py-3 backdrop-blur-md"><div><p className="text-xs text-primary">Available for collaboration</p><p className="font-serif text-lg">Nairobi, Kenya</p></div><Code2 className="h-6 w-6 text-primary" /></div>
+          </motion.div>
+          <div className="absolute -right-5 top-12 h-20 w-20 rounded-2xl border border-primary/30 bg-card/70 backdrop-blur-md hidden sm:block animate-[float_5s_ease-in-out_infinite]" />
+          <div className="absolute -left-7 bottom-16 h-14 w-14 rounded-full bg-primary/20 blur-sm hidden sm:block" />
+        </motion.div>
+
         {/* Scroll indicator */}
         <motion.div
-          className="absolute bottom-6 sm:bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
+          className="absolute bottom-5 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 2 }}
