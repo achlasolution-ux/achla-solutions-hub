@@ -50,7 +50,7 @@ const Hero = () => {
           className="inline-flex items-center gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full border border-primary/30 bg-primary/5 backdrop-blur-sm mb-6 sm:mb-8"
         >
           <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
-          <TextScramble text="Software Engineer · Systems Builder" className="text-primary text-xs sm:text-sm font-medium tracking-wide" delay={300} />
+          <TextScramble text="Moses Karani · Software Engineer" className="text-primary text-xs sm:text-sm font-semibold tracking-wide" delay={300} />
         </motion.div>
 
         <motion.h1
@@ -59,14 +59,14 @@ const Hero = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
         >
-          <span className="block">Moses</span>
+          <span className="block">Digital systems,</span>
           <motion.span
             className="block text-gradient relative"
             initial={{ opacity: 0, x: -50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 1, delay: 0.6, ease: [0.22, 1, 0.36, 1] }}
           >
-            Karani
+            built with purpose.
             <motion.div
               className="absolute -bottom-1 sm:-bottom-2 left-0 h-[2px] sm:h-[3px] bg-gradient-to-r from-primary via-primary/50 to-transparent"
               initial={{ width: 0 }}
@@ -82,7 +82,7 @@ const Hero = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.8 }}
         >
-          I design reliable digital products for commerce, communities, and growing organizations — from e-commerce and inventory systems to streaming and messaging platforms.
+          I build dependable digital products for commerce, communities, and growing organizations — from e-commerce and inventory systems to streaming and messaging platforms.
         </motion.p>
 
         <motion.div
@@ -94,8 +94,8 @@ const Hero = () => {
           <span className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-card/50 border border-border/50 backdrop-blur-sm">
             <MapPin className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-primary" /> Nairobi, Kenya
           </span>
-          <a href="mailto:achlasolution@gmail.com" className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-card/50 border border-border/50 backdrop-blur-sm hover:border-primary/50 transition-colors">
-            <Mail className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-primary" /> achlasolution@gmail.com
+          <a href="mailto:moseskaran7i@gmail.com" className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-card/50 border border-border/50 backdrop-blur-sm hover:border-primary/50 transition-colors">
+            <Mail className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-primary" /> moseskaran7i@gmail.com
           </a>
           <a href="tel:+254110941031" className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-card/50 border border-border/50 backdrop-blur-sm hover:border-primary/50 transition-colors">
             <Phone className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-primary" /> 0110941031
@@ -112,7 +112,7 @@ const Hero = () => {
             href="#projects"
             className="group relative px-6 sm:px-8 py-3 sm:py-3.5 bg-primary text-primary-foreground font-semibold rounded-full overflow-hidden inline-flex items-center justify-center gap-2"
           >
-            <span className="relative z-10">View Projects</span>
+            <span className="relative z-10">Explore my work</span>
             <ArrowRight className="w-4 h-4 relative z-10 group-hover:translate-x-1 transition-transform" />
             <motion.div
               className="absolute inset-0 bg-gradient-to-r from-primary via-accent to-primary bg-[length:200%_100%]"
@@ -132,9 +132,9 @@ const Hero = () => {
 
         <motion.div initial={{ opacity: 0, scale: 0.88, rotate: 6 }} animate={{ opacity: 1, scale: 1, rotate: 0 }} transition={{ duration: 1, delay: 0.45, ease: [0.22, 1, 0.36, 1] }} className="relative mx-auto w-[min(82vw,390px)] lg:w-full perspective-[1000px]">
           <motion.div animate={{ y: [0, -12, 0], rotateY: [-3, 3, -3] }} transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }} className="relative aspect-[.76] rounded-[2rem] p-2 bg-gradient-to-br from-primary via-sky-400/60 to-primary/20 shadow-[0_30px_100px_hsl(160_60%_45%_/_0.22)]">
-            <img src={portrait} alt="Moses Karani" className="h-full w-full rounded-[1.6rem] object-cover object-center" />
+            <img src={portrait} alt="Moses Karani" className="h-full w-full rounded-[1.6rem] object-cover object-[50%_12%]" />
             <div className="absolute inset-2 rounded-[1.6rem] bg-gradient-to-t from-background/55 via-transparent to-transparent" />
-            <div className="absolute bottom-7 left-7 right-7 flex items-center justify-between rounded-2xl border border-white/15 bg-background/55 px-4 py-3 backdrop-blur-md"><div><p className="text-xs text-primary">Available for collaboration</p><p className="font-serif text-lg">Nairobi, Kenya</p></div><Code2 className="h-6 w-6 text-primary" /></div>
+            <div className="absolute bottom-7 left-7 right-7 flex items-center justify-between rounded-2xl border border-white/50 bg-background/75 px-4 py-3 shadow-lg backdrop-blur-md"><div><p className="text-xs text-primary font-semibold">Available for collaboration</p><p className="font-serif text-lg">Nairobi, Kenya</p></div><Code2 className="h-6 w-6 text-primary" /></div>
           </motion.div>
           <div className="absolute -right-5 top-12 h-20 w-20 rounded-2xl border border-primary/30 bg-card/70 backdrop-blur-md hidden sm:block animate-[float_5s_ease-in-out_infinite]" />
           <div className="absolute -left-7 bottom-16 h-14 w-14 rounded-full bg-primary/20 blur-sm hidden sm:block" />

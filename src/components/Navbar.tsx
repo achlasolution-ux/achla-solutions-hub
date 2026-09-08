@@ -53,10 +53,10 @@ const Navbar = () => {
       <div className="max-w-6xl mx-auto px-4 sm:px-6 h-14 sm:h-16 flex items-center justify-between">
         <motion.a
           href="#"
-          className="text-lg sm:text-xl font-serif font-bold relative"
+          className="text-lg sm:text-xl font-serif font-bold relative tracking-tight"
           whileHover={{ scale: 1.05 }}
         >
-          MK<span className="text-primary">.</span>
+          Moses<span className="text-primary">.</span>
         </motion.a>
 
         {/* Desktop */}

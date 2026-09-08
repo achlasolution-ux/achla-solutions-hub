@@ -2,10 +2,10 @@ import { motion } from "framer-motion";
 import AnimatedCounter from "./AnimatedCounter";
 
 const stats = [
-  { value: 5, suffix: "+", label: "Years Experience", icon: "⚡" },
-  { value: 10, suffix: "K+", label: "Users Served", icon: "👥" },
-  { value: 99, suffix: ".8%", label: "Uptime SLA", icon: "🛡️" },
-  { value: 15, suffix: "+", label: "Projects Delivered", icon: "🚀" },
+  { value: 1, suffix: "", label: "Commerce System", icon: "◉" },
+  { value: 3, suffix: "", label: "Active Builds", icon: "✦" },
+  { value: 2, suffix: "", label: "Product Focuses", icon: "↗" },
+  { value: 1, suffix: "", label: "Clear Mission", icon: "◎" },
 ];
 
 const About = () => {
@@ -22,8 +22,7 @@ const About = () => {
         >
           <p className="text-primary tracking-[0.25em] uppercase text-xs font-medium mb-3 sm:mb-4">About</p>
           <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-serif mb-8 sm:mb-12">
-            Building the digital{" "}
-            <span className="text-gradient">backbone</span> of East Africa
+            Building useful software, <span className="text-gradient">with care.</span>
           </h2>
         </motion.div>
 

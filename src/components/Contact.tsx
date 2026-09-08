@@ -3,7 +3,7 @@ import { Mail, Phone, MapPin, ExternalLink, Github, Linkedin } from "lucide-reac
 import MagneticButton from "./MagneticButton";
 
 const contactLinks = [
-  { icon: <Mail className="w-5 h-5" />, label: "Email", value: "achlasolution@gmail.com", href: "mailto:achlasolution@gmail.com" },
+  { icon: <Mail className="w-5 h-5" />, label: "Email", value: "moseskaran7i@gmail.com", href: "mailto:moseskaran7i@gmail.com" },
   { icon: <Phone className="w-5 h-5" />, label: "Phone", value: "0110941031 / 0739993487", href: "tel:+254110941031" },
   { icon: <ExternalLink className="w-5 h-5" />, label: "Website", value: "achla-solutions.vercel.app", href: "https://achla-solutions.vercel.app" },
   { icon: <MapPin className="w-5 h-5" />, label: "Location", value: "Nairobi, Kenya", href: undefined },
