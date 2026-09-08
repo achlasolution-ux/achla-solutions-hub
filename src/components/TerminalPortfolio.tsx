@@ -71,6 +71,7 @@ const TerminalPortfolio = () => {
   const [input, setInput] = useState("");
   const [isTyping, setIsTyping] = useState(true);
   const terminalWindowRef = useRef<HTMLElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
 
   const runCommand = (rawCommand: string, showCommand = true) => {
     const command = rawCommand.trim().toLowerCase();
@@ -83,6 +84,7 @@ const TerminalPortfolio = () => {
   };
 
   const submit = (event: FormEvent) => { event.preventDefault(); runCommand(input); setInput(""); };
+  const focusPrompt = () => inputRef.current?.focus({ preventScroll: true });
 
   useEffect(() => {
     const keepOutputInView = () => {
@@ -113,7 +115,7 @@ const TerminalPortfolio = () => {
           {entry.command && <p className="terminal-input"><span className="prompt-user">moses</span><span className="prompt-separator">@</span><span className="prompt-host">portfolio</span><span className="prompt-separator">:~$</span> {entry.command}</p>}
           <div className="terminal-output">{entry.content}</div>
         </div>)}
-        {!isTyping && <form onSubmit={submit} className="terminal-form"><label htmlFor="terminal-input"><span className="prompt-user">moses</span><span className="prompt-separator">@</span><span className="prompt-host">portfolio</span><span className="prompt-separator">:~$</span>&nbsp;</label><input id="terminal-input" value={input} onChange={(event) => setInput(event.target.value)} autoComplete="off" autoFocus aria-label="Enter a portfolio command" style={{ width: `${Math.max(input.length + 1, 1)}ch` }} /><span className="terminal-cursor" /></form>}
+        {!isTyping && <form onSubmit={submit} className="terminal-form" onPointerDown={focusPrompt} onClick={focusPrompt}><label htmlFor="terminal-input"><span className="prompt-user">moses</span><span className="prompt-separator">@</span><span className="prompt-host">portfolio</span><span className="prompt-separator">:~$</span>&nbsp;</label><input ref={inputRef} id="terminal-input" value={input} onChange={(event) => setInput(event.target.value)} autoComplete="off" autoFocus inputMode="text" aria-label="Enter a portfolio command" style={{ width: `${Math.max(input.length + 1, 1)}ch` }} /><span className="terminal-cursor" /></form>}
       </section>
       </div>
       <footer className="terminal-footer"><span>MK/OS · Nairobi, Kenya</span><button onClick={() => navigator.clipboard.writeText("moseskaran7i@gmail.com")}><Copy size={13} /> copy email</button><LiveClock /></footer>
