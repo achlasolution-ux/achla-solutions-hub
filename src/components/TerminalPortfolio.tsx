@@ -7,7 +7,7 @@ const commands = ["help", "about", "now", "projects", "experience", "skills", "c
 
 const terminalContent: Record<string, React.ReactNode> = {
   welcome: <WelcomeMessage />,
-  help: <TypingText delay={300} text={"Available commands:\n\nhelp        show all commands\nabout       learn about Moses\nnow         see current work\nprojects    view selected work\nexperience  view work history\nskills      view technical toolkit\ncontact     get in touch\nphoto       view portrait\nclear       reset the terminal"} />,
+  help: <TypingText delay={300} text={"Available commands:\n\nhelp        show all commands\nabout       learn about Moses\nnow         see current work\nprojects    view selected work\nexperience  view work history\nskills      view technical toolkit\ncontact     get in touch\nclear       reset the terminal"} />,
   about: <TypingText delay={550} text={"I am Moses Karani, a software engineer and tech enthusiast based in Kenya. I work across backend development, web applications, e-commerce, inventory, payments, streaming, testing, and cloud-ready systems.\n\nMy approach is practical and systematic: understand the workflow first, build a maintainable solution, test real user paths and edge cases, and document the work clearly for the people who will operate it.\n\nI have worked with JavaScript and TypeScript, Python, C#, Rust, SQL, HTML, CSS, Go, PostgreSQL, ASP.NET Core, React, React Native, Node.js, FastAPI, Docker, Git, AWS, and production payment and email integrations."} />,
   now: <TypingText delay={350} text={"Current work: Rhema Outreach Missionary International\nJun 2026 – Present\n\nI am developing the backend services with Go and PostgreSQL. The work includes a church streaming application, the Wailing Mothers Prayer Movement website, and a bulk SMS platform for community communication.\n\nThe platform work includes Paystack payment integration, Brevo messaging services, and Zoho email integration for transactional and operational communication. I am designing the backend around dependable data handling, clear service boundaries, and practical administration for the church team."} />,
   projects: <TypingText delay={350} text={"01 / Rhema Outreach Digital Platform\nBackend services built with Go and PostgreSQL for church streaming, prayer-movement web experiences, and bulk SMS communication. Integrations include Paystack for payments, Brevo for messaging workflows, and Zoho for email communication.\n\n02 / Prime Market\nMulti-vendor e-commerce and inventory platform. Work covered catalogue management, stock operations, orders, payment processing, operational administration, production testing, and code-quality work across a complex marketplace system.\n\n03 / AppTestHub\nQA marketplace platform connecting enterprises with distributed software testers. Built for structured bug reporting, test-result aggregation, and professional documentation workflows using React Native, FastAPI, and MongoDB.\n\n04 / Achla Solutions\nWeb products, systems engineering, and digital solutions for organizations that need dependable technology and clear user workflows."} />,
@@ -31,6 +31,7 @@ function TypingText({ text, delay = 0 }: { text: string; delay?: number }) {
     }, delay);
     return () => { window.clearTimeout(startTimer); if (interval) window.clearInterval(interval); };
   }, [delay, text]);
+  useEffect(() => { window.dispatchEvent(new Event("terminal-output-update")); }, [visible]);
   useEffect(() => {
     if (visible === text.length && !completeRef.current) {
       completeRef.current = true;
@@ -41,7 +42,7 @@ function TypingText({ text, delay = 0 }: { text: string; delay?: number }) {
 }
 
 function WelcomeMessage() {
-  const message = "Hi, I’m Moses Karani, a Software Engineer and Tech Enthusiast.\n\nWelcome to my interactive portfolio terminal.\nUse the menu or type 'help' to explore my work.";
+  const message = "Hi, I’m Moses Karani, a Software Engineer and Tech Enthusiast.\n\nWelcome to my interactive portfolio terminal.\nType 'help' to explore my work.";
   const [visible, setVisible] = useState(0);
   const completeRef = useRef(false);
   useEffect(() => {
@@ -49,6 +50,7 @@ function WelcomeMessage() {
     const timer = window.setTimeout(() => setVisible((current) => current + 1), 16);
     return () => window.clearTimeout(timer);
   }, [visible, message.length]);
+  useEffect(() => { window.dispatchEvent(new Event("terminal-output-update")); }, [visible]);
   useEffect(() => {
     if (visible === message.length && !completeRef.current) {
       completeRef.current = true;
@@ -68,7 +70,7 @@ const TerminalPortfolio = () => {
   const [entries, setEntries] = useState<Entry[]>([{ content: terminalContent.welcome }]);
   const [input, setInput] = useState("");
   const [isTyping, setIsTyping] = useState(true);
-  const endRef = useRef<HTMLDivElement>(null);
+  const terminalWindowRef = useRef<HTMLElement>(null);
 
   const runCommand = (rawCommand: string, showCommand = true) => {
     const command = rawCommand.trim().toLowerCase();
@@ -82,7 +84,15 @@ const TerminalPortfolio = () => {
 
   const submit = (event: FormEvent) => { event.preventDefault(); runCommand(input); setInput(""); };
 
-  useEffect(() => endRef.current?.scrollIntoView({ behavior: "smooth" }), [entries]);
+  useEffect(() => {
+    const keepOutputInView = () => {
+      const terminal = terminalWindowRef.current;
+      if (terminal) terminal.scrollTop = terminal.scrollHeight;
+    };
+    keepOutputInView();
+    window.addEventListener("terminal-output-update", keepOutputInView);
+    return () => window.removeEventListener("terminal-output-update", keepOutputInView);
+  }, [entries, isTyping]);
   useEffect(() => {
     const complete = () => setIsTyping(false);
     window.addEventListener("terminal-typing-complete", complete);
@@ -97,14 +107,13 @@ const TerminalPortfolio = () => {
       </header>
       <nav className="terminal-nav" aria-label="Available terminal commands">{commands.map((command) => <span key={command}>{command}</span>)}</nav>
       <div className="terminal-workspace">
-      <section className="terminal-window" aria-label="Interactive portfolio terminal">
+      <section ref={terminalWindowRef} className="terminal-window" aria-label="Interactive portfolio terminal">
         <div className="terminal-intro"><span className="prompt-user">moses</span><span className="prompt-separator">@</span><span className="prompt-host">portfolio</span><span className="prompt-separator">:~$</span> <span className="terminal-command">welcome</span></div>
         {entries.map((entry, index) => <div className="terminal-entry" key={`${entry.command ?? "welcome"}-${index}`}>
           {entry.command && <p className="terminal-input"><span className="prompt-user">moses</span><span className="prompt-separator">@</span><span className="prompt-host">portfolio</span><span className="prompt-separator">:~$</span> {entry.command}</p>}
           <div className="terminal-output">{entry.content}</div>
         </div>)}
-        {!isTyping && <form onSubmit={submit} className="terminal-form"><label htmlFor="terminal-input"><span className="prompt-user">moses</span><span className="prompt-separator">@</span><span className="prompt-host">portfolio</span><span className="prompt-separator">:~$</span></label><input id="terminal-input" value={input} onChange={(event) => setInput(event.target.value)} autoComplete="off" autoFocus aria-label="Enter a portfolio command" /><span className="terminal-cursor" /></form>}
-        <div ref={endRef} />
+        {!isTyping && <form onSubmit={submit} className="terminal-form"><label htmlFor="terminal-input"><span className="prompt-user">moses</span><span className="prompt-separator">@</span><span className="prompt-host">portfolio</span><span className="prompt-separator">:~$</span>&nbsp;</label><input id="terminal-input" value={input} onChange={(event) => setInput(event.target.value)} autoComplete="off" autoFocus aria-label="Enter a portfolio command" style={{ width: `${Math.max(input.length + 1, 1)}ch` }} /><span className="terminal-cursor" /></form>}
       </section>
       </div>
       <footer className="terminal-footer"><span>MK/OS · Nairobi, Kenya</span><button onClick={() => navigator.clipboard.writeText("moseskaran7i@gmail.com")}><Copy size={13} /> copy email</button><LiveClock /></footer>
